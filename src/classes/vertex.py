@@ -5,3 +5,4 @@ class Vertex:
         self.distance = float("inf")
         self.pred_vertex = None
 
+
