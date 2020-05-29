@@ -1,7 +1,10 @@
 import operator
+import csv
 
 from src.classes.vertex import Vertex
 from src.classes.graph import Graph
+from src.classes.hashtable import HashTable
+from src.classes.package import Package
 
 
 def dijkstra_shortest_path(g, start_vertex):
@@ -56,8 +59,22 @@ def get_shortest_path(start_vertex, end_vertex):
     return path
 
 
-g = Graph()
+# package_id, address, city, state, zip_code, deadline, weight, notes="", status="In Hub"
+def read_csv_file(file_name, h):
+    with open(file_name, newline='') as csvfile:
+        filereader = csv.reader(csvfile, delimiter=",")
+        for row in filereader:
+            package = Package(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
+            print(package.package_id)
+            h.insert(package.package_id, package)
 
+
+h = HashTable()
+
+read_csv_file('package-data.csv', h)
+print(h.search(1))
+g = Graph()
+# each vertex is an address
 vertex_a = Vertex("A")
 vertex_b = Vertex("B")
 vertex_c = Vertex("C")
@@ -72,7 +89,7 @@ g.add_vertex(vertex_d)
 g.add_vertex(vertex_e)
 g.add_vertex(vertex_f)
 g.add_vertex(vertex_g)
-
+# each edge is a path from one address to another and weight is the distance between them
 g.add_undirected_edge(vertex_a, vertex_b, 8)
 g.add_undirected_edge(vertex_a, vertex_c, 7)
 g.add_undirected_edge(vertex_a, vertex_d, 3)
@@ -89,8 +106,8 @@ dijkstra_shortest_path(g, vertex_a)
 
 # Sort the vertices by the label for convenience; display shortest path for each vertex
 # from vertex_a.
-for v in sorted(g.adjacency_list, key=operator.attrgetter("label")):
-    if v.pred_vertex is None and v is not vertex_a:
-        print("A to %s: no path exists" % v.label)
-    else:
-        print("A to %s: %s (total weight: %g)" % (v.label, get_shortest_path(vertex_a, v), v.distance))
+# for v in sorted(g.adjacency_list, key=operator.attrgetter("label")):
+#     if v.pred_vertex is None and v is not vertex_a:
+#         print("A to %s: no path exists" % v.label)
+#     else:
+#         print("A to %s: %s (total weight: %g)" % (v.label, get_shortest_path(vertex_a, v), v.distance))
