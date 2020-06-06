@@ -33,7 +33,6 @@ def calculate_current_time(start_time, distance):
         mins = int(mins + (60 * (time_to_add[1] / 10)))
 
     if mins >= 60:
-        print(divmod(mins, 60))
         hour = int(hour + divmod(mins, 60)[0])
         mins = int(mins - 60)
     elif mins < 10:
@@ -90,7 +89,7 @@ packages_to_deliver = []
 # Just passed with 68.7 miles. Very similar to Ryan K's solution.
 # Truck 1 delivers 14, 15, 16, 34, 20, 21, 19, 1, 7, 29, 37, 30, 13, 39, 27, 35.
 pkgs_truck1 = [14, 15, 16, 34, 20, 21, 19, 1, 7, 29, 37, 30, 13, 39, 27, 35]
-pkgs_truck2 = [25, 26, 22, 24, 28, 4, 40, 31, 32, 17, 6, 36, 12, 18, 23, 11]
+pkgs_truck2 = [26, 22, 24, 28, 4, 40, 31, 32, 17, 6, 36, 12, 18, 23, 11, 25]
 pkgs_truck2_second_round = [2, 33, 10, 5, 38, 8, 9, 3]
 # Truck 2 delivers 25, 26, 22, 24, 28, 4, 40, 31, 32, 17, 6, 36, 12, 18, 23, 11.
 # Returns to HUB and then delivers 2, 33, 10, 5, 38, 8, 9, 3.
@@ -131,6 +130,7 @@ for pkg in truck1.packages:
             truck1.distance += g.edge_weights[edge]
             pkg.status = "Delivered"
 
+
 #  total distance once truck 1 completed last delivery
 total_distance += truck1.distance
 # update current time
@@ -141,12 +141,15 @@ print("Truck 1 finished delivery at " + current_time)
 for pkg in truck2.packages:
     full_address_package = h.search(pkg.package_id).address + ' ' + h.search(pkg.package_id).zip_code
     pair = (full_address_package, truck2.current_location)
+    pair2 = (full_address_package, "HUB")
     for edge in g.edge_weights:
         # print(edge)
         if pair == edge:
             truck2.current_location = full_address_package
             truck2.distance += g.edge_weights[edge]
             pkg.status = "Delivered"
+        if pair2 == edge:
+            print(g.edge_weights[edge])
 total_distance += truck2.distance
 current_time = calculate_current_time(truck2.start_time, truck2.distance)
 
@@ -183,8 +186,6 @@ for pkg in truck2.packages:
             truck2.distance += g.edge_weights[edge]
             pkg.status = "Delivered"
 total_distance += truck2.distance
-print(truck2.start_time)
-print(truck2.distance)
 current_time = calculate_current_time(truck2.start_time, truck2.distance)
 print("Truck 2 finished delivery at " + current_time)
 print("Total distance travelled by all trucks: " + str(round(total_distance, 2)))
