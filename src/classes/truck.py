@@ -3,6 +3,7 @@ class Truck:
     _distance: int
 
     def __init__(self):
+        """'packages' is a list of package ids that are loaded on the truck"""
         self._packages = []
         self._start_time = ""
         self._distance = 0
@@ -41,3 +42,7 @@ class Truck:
     @current_location.setter
     def current_location(self, new_current_location):
         self._current_location = new_current_location
+
+    # Add packages to list of packages that are on the truck, takes package_id as int
+    def add_packages(self, package_id):
+        self._packages.append(package_id)
