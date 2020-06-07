@@ -43,6 +43,10 @@ class Truck:
     def current_location(self, new_current_location):
         self._current_location = new_current_location
 
-    # Add packages to list of packages that are on the truck, takes package_id as int
+    """Add packages to list of packages that are on the truck, takes package_id as int """
     def add_package(self, package_id):
         self._packages.append(package_id)
+
+    """Remove all packages from the truck"""
+    def remove_all_packages(self):
+        self._packages = []
