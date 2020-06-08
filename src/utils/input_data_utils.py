@@ -4,13 +4,12 @@ import re
 from src.classes.package import Package
 
 
-def read_packages_csv_file(file_name, h, packages_list):
+def read_packages_csv_file(file_name, h):
     with open(file_name, newline='') as csv_file:
         file_reader = csv.reader(csv_file, delimiter=",")
         for row in file_reader:
-            package = Package(int(row[0]), row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+            package = Package(int(row[0]), row[1].strip(), row[2].strip(), row[3].strip(), row[4].strip(), row[5], row[6], row[7])
             h.insert(package.package_id, package)
-            packages_list.append(package)
 
 
 def read_locations_csv_file(file_name, g):
@@ -20,7 +19,7 @@ def read_locations_csv_file(file_name, g):
 
         for row in file_reader:
             row_address = re.sub('[()]', ' ', row[1])
-            row_address = row_address.replace('\n', '').lstrip().rstrip()
+            row_address = row_address.replace('\n', '').strip()
             sliced_dist = row[2:]
             sliced_dist.insert(0, row_address)
             location_matrix.append(sliced_dist)
