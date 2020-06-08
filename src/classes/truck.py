@@ -83,6 +83,7 @@ class Truck:
             package = packages_h.search(packages_l[index])
             if package is not None:
                 package.truck_number = str(self._id)
+                package.delivery_start_time = self.start_time
                 self.add_package(package)
 
 
