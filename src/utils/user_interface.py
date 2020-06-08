@@ -21,5 +21,7 @@ def display_package_details(package_id, packages_hash):
     print("Weight: " + package.weight)
     print("Status: " + package.status)
     print("Notes: " + package.notes)
+    print("Delivered on truck: " + package.truck_number)
+    print("Delivery started at: " + package.delivery_start_time)
     print("Delivered at: " + package.delivery_time)
     print("-------------------------------")
