@@ -69,6 +69,12 @@ def combine_packages_by_time(time_str, packages_h):
             elif hour < hour_package_delivered or (hour == hour_package_delivered and mins < mins_package_delivered):
                 in_transit.append(package)
 
+    return [delivered, in_transit, in_hub]
+
+
+def display_result_time_command(time_str, packages_h):
+    delivered, in_transit, in_hub = combine_packages_by_time(time_str, packages_h)
+
     print("Status for all packages at " + time_str)
     print("Delivered packages:")
     display_packages_in_list(delivered)
