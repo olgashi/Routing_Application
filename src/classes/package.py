@@ -1,6 +1,6 @@
 class Package:
     """Constructor"""
-    def __init__(self, package_id, address, city, state, zip_code, deadline, weight, notes="", status="In Hub", delivery_time=""):
+    def __init__(self, package_id, address, city, state, zip_code, deadline, weight, notes="", status="In Hub", delivery_time="", truck_number=-1):
         self._package_id = int(package_id)
         self._address = address
         self._deadline = deadline
@@ -11,6 +11,7 @@ class Package:
         self._status = status
         self._notes = notes
         self._delivery_time = delivery_time
+        self._truck_number = truck_number
 
     """Setters and getters"""
 
@@ -93,4 +94,12 @@ class Package:
     @delivery_time.setter
     def delivery_time(self, new_delivery_time):
         self._delivery_time = new_delivery_time
+
+    @property
+    def truck_number(self):
+        return self._truck_number
+
+    @truck_number.setter
+    def truck_number(self, new_truck_number):
+        self._truck_number = new_truck_number
 
