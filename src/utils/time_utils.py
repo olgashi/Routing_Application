@@ -1,10 +1,8 @@
 def calculate_current_time(start_time, distance):
-    start_time_split = start_time.split(' ')
-    start_time = start_time_split[0]
-    am_pm = start_time_split[1]
-    start_time = start_time.split(':')
-    hour = int(start_time[0])
-    mins = int(start_time[1])
+    start_time, am_pm = start_time.split(' ')
+    hour, mins = start_time.split(':')
+    hour = int(hour)
+    mins = int(mins)
 
     if distance < 18:
         mins = int(mins + ((distance / 18) * 60))
@@ -15,13 +13,16 @@ def calculate_current_time(start_time, distance):
 
     if mins >= 60:
         hour = int(hour + divmod(mins, 60)[0])
-        mins = int(mins - 60)
-    elif mins < 10:
+        mins = divmod(mins, 60)[1]
+
+    if mins < 10:
         mins = int('0' + str(mins))
 
-    if hour > 11 and am_pm == "AM":
-        am_pm = 'PM'
-    else:
-        am_pm = 'AM'
+    if hour > 12:
+        hour -= 12
+        am_pm = "PM"
+
+    if hour == 12:
+        am_pm = "PM"
 
     return str(hour) + ':' + str(mins).zfill(2) + ' ' + am_pm
