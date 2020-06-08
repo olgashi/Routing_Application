@@ -46,6 +46,8 @@ def start_daily_delivery():
     current_time = calculate_current_time(truck2.start_time, truck2.distance)
     route_to_hub = (truck2.current_location, "HUB")
     distance_to_hub = 0
+    """There are n^2/2 edges in the graph, where n is the number of unique addresses
+    """
     for edge in locations_graph.edge_distances:
         if route_to_hub == edge:
             truck2.current_location = "HUB"
@@ -57,6 +59,10 @@ def start_daily_delivery():
     # clear packages from first round of deliveries
     truck2.remove_all_packages()
     # load truck2 with remaining packages
+    package_with_wrong_address = packages_hash.search(9)
+    package_with_wrong_address.address = "410 S State St"
+    package_with_wrong_address.zip_code = "84111"
+
     truck2.load_truck(packages_truck2_second_round, packages_hash)
     truck2.start_time = current_time
     truck2.distance = 0
