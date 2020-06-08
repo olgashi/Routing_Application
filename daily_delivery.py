@@ -67,6 +67,5 @@ def start_daily_delivery():
     total_distance += truck2.distance
     current_time = calculate_current_time(truck2.start_time, truck2.distance)
 
-
-start_daily_delivery()
+    return [current_time, format(total_distance, '.2f'), packages_hash]
 
