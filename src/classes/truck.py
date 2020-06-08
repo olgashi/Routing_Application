@@ -7,7 +7,8 @@ class Truck:
     """'_packages' is a list of package ids that are loaded on the truck"""
     """'_distance' tracks distance for all deliveries over the course of a single trip"""
 
-    def __init__(self):
+    def __init__(self, truck_id):
+        self._id = truck_id
         self._packages = []
         self._start_time = ""
         self._distance = 0
@@ -15,6 +16,14 @@ class Truck:
         self._current_time = ""
 
     """Setters and getters"""
+
+    @property
+    def id(self):
+        return self._id
+
+    @id.setter
+    def id(self, new_id):
+        self._id = new_id
 
     @property
     def packages(self):
@@ -71,7 +80,11 @@ class Truck:
 
     def load_truck(self, packages_l: list, packages_h: hash):
         for index in range(0, len(packages_l)):
-            self.add_package(packages_h.search(packages_l[index]))
+            package = packages_h.search(packages_l[index])
+            if package is not None:
+                package.truck_number = str(self._id)
+                self.add_package(package)
+
 
     def set_delivery_status(self, packages_h, status):
         for package in self.packages:
