@@ -22,8 +22,8 @@ def start_daily_delivery():
     # Read and parse data for locations between shipping destinations
     read_locations_csv_file('src/data/distances-between-locations.csv', locations_graph)
     # Initialize truck instances
-    truck1 = Truck()
-    truck2 = Truck()
+    truck1 = Truck(1)
+    truck2 = Truck(2)
     # Set start time
     truck1.start_time = "8:00 AM"
     truck2.start_time = "9:05 AM"
