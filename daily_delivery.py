@@ -61,7 +61,7 @@ def start_daily_delivery():
     truck2.start_time = current_time
     truck2.distance = 0
     # set package status to "In Transit" once delivery starts
-    truck1.set_delivery_status(packages_hash, "In Transit")
+    truck2.set_delivery_status(packages_hash, "In Transit")
     # start delivery, truck 2 makes second round of deliveries
     truck2.deliver_packages(packages_hash, locations_graph)
     total_distance += truck2.distance
