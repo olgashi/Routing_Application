@@ -5,6 +5,8 @@ from src.classes.truck import Truck
 from src.utils.time_utils import calculate_current_time
 from src.utils.input_data_utils import read_packages_csv_file
 from src.utils.input_data_utils import read_locations_csv_file
+"""delivery_engine.py contains the function below that simulates the delivery 
+for all trucks in service that day and for all loads they need to deliver"""
 
 
 def start_daily_delivery():
@@ -17,7 +19,7 @@ def start_daily_delivery():
     # sorting takes into account all assumptions and deadlines specific to each package
     # truck3 will not be used
     packages_truck1 = [14, 15, 16, 34, 20, 21, 19, 1, 7, 29, 37, 30, 13, 39, 27, 35]
-    packages_truck2 = [26, 22, 24, 28, 4, 40, 31, 32, 17, 6, 36, 12, 18, 23, 11, 25]
+    packages_truck2 = [25, 26, 22, 24, 28, 4, 40, 31, 32, 17, 6, 36, 12, 18, 23, 11]
     packages_truck2_second_round = [2, 33, 10, 5, 38, 8, 9, 3]
     # Read and parse packages data from file
     read_packages_csv_file('src/data/package-data.csv', packages_hash)
@@ -51,11 +53,11 @@ def start_daily_delivery():
     route_to_hub = (truck2.current_location, "HUB")
     distance_to_hub = 0
     # find path to HUB and determine distance, add to total distance
-    for edge in locations_graph.edge_distances:
-        if route_to_hub == edge:
-            truck2.current_location = "HUB"
-            distance_to_hub = locations_graph.edge_distances[edge]
-            total_distance += distance_to_hub
+    # O(1)
+    if locations_graph.edge_distances[route_to_hub]:
+        truck2.current_location = "HUB"
+        distance_to_hub = locations_graph.edge_distances[route_to_hub]
+        total_distance += distance_to_hub
     # update current time after truck2 returned to HUB
     current_time = calculate_current_time(current_time, distance_to_hub)
     # reset truck2 distance and packages, update time
