@@ -1,6 +1,6 @@
 from src.utils.time_utils import calculate_current_time
 
-""" Average time to search for a path is O(1), lookup for all packages is O(n) where n is a number of packages
+""" Average time to search for a single path is O(1), lookup (and total runtime complexity) for all packages is O(n) where n is a number of packages
  """
 
 
@@ -13,12 +13,12 @@ def deliver_packages(truck, packages_h, locations_g):
     """
     truck.current_time = truck.start_time
     for package in truck.packages:
-        """We need to combine address and zipcode to match format of locations/addresses 
+        """We need to combine address and zip code to match format of locations/addresses 
         stored in locations_g (locations Graph)"""
         full_address = packages_h.search(package.package_id).address + ' ' + packages_h.search(
             package.package_id).zip_code
         route = (truck.current_location, full_address)
-        """Condition checks if next package has to be delivered to the same location as the one before"""
+        """Condition checks if next package has to be delivered to the same location as the one before (current location)"""
         if truck.current_location == full_address:
             packages_h.search(package.package_id).status = "Delivered"
             packages_h.search(package.package_id).delivery_time = truck.current_time
@@ -35,4 +35,4 @@ def deliver_packages(truck, packages_h, locations_g):
                                                                                                  route])
                 truck.current_time = calculate_current_time(truck.current_time, locations_g.edge_distances[route])
             else:
-                print("Route doesnt exist")
+                raise ValueError("Path does not exist")
