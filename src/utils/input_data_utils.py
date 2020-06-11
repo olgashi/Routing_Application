@@ -4,19 +4,24 @@ import re
 from src.classes.package import Package
 
 
+# Overall time/space complexity is O(n)
 def read_packages_csv_file(file_name, h):
     with open(file_name, newline='') as csv_file:
         file_reader = csv.reader(csv_file, delimiter=",")
+        # O(n), where n is number of packages
         for row in file_reader:
             package = Package(int(row[0]), row[1].strip(), row[2].strip(), row[3].strip(), row[4].strip(), row[5], row[6], row[7])
             h.insert(package.package_id, package)
 
 
+# Overall time complexity is O(n^2), space complexity is O(n)
 def read_locations_csv_file(file_name, g):
     with open(file_name, newline='') as csv_file:
         file_reader = csv.reader(csv_file, delimiter=",")
         location_matrix = []
         # the loop removes () from zip code values
+        # it processes each row in a file and places it into a location_matrix
+        # Runtime is O(n), n number of unique locations (vertices)
         for row in file_reader:
             row_address = re.sub('[()]', ' ', row[1])
             row_address = row_address.replace('\n', '').strip()
@@ -24,6 +29,7 @@ def read_locations_csv_file(file_name, g):
             sliced_dist.insert(0, row_address)
             location_matrix.append(sliced_dist)
         counter = 1
+        # Once location_matrix is populated, add a vertex to graph for each row
         # O(n), n number of unique locations (vertices)
         for row in location_matrix:
             g.add_vertex(row[0])

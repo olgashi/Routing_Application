@@ -1,6 +1,3 @@
-from src.utils.time_utils import calculate_current_time
-
-
 class Truck:
     """Constructor"""
     _distance: int
@@ -86,30 +83,6 @@ class Truck:
                 package.delivery_start_time = self.start_time
                 self.add_package(package)
 
-
     def set_delivery_status(self, packages_h, status):
         for package in self.packages:
             packages_h.search(package.package_id).status = status
-
-    """Deliver packages, update time of delivery and status for each package"""
-    def deliver_packages(self, packages_h, locations_g):
-        self.current_time = self.start_time
-        for package in self.packages:
-            full_address = packages_h.search(package.package_id).address + ' ' + packages_h.search(
-                package.package_id).zip_code
-            route = (self.current_location, full_address)
-            if self.current_location == full_address:
-                packages_h.search(package.package_id).status = "Delivered"
-                packages_h.search(package.package_id).delivery_time = self.current_time
-            else:
-                for edge in locations_g.edge_distances:
-                    if route == edge:
-                        self.current_location = full_address
-                        self.add_new_distance(locations_g.edge_distances[edge])
-                        packages_h.search(package.package_id).status = "Delivered"
-                        packages_h.search(package.package_id).delivery_time = calculate_current_time(self.current_time,
-                                                                                                     locations_g.edge_distances[
-                                                                                                         edge])
-                        self.current_time = calculate_current_time(self.current_time, locations_g.edge_distances[edge])
-                        break
-            # print("Package delivered at " + package.delivery_time)

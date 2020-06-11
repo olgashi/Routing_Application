@@ -4,7 +4,7 @@ from src.utils.time_utils import parse_time
 def user_input():
     command = input("""
     id - look up details for a specific package;
-    time - display package status of all packages at a specific time (only accepts am/pm format, for example 8:25 am);
+    time - display package status of all packages at a specific time (only accepts am/pm format, for example, 8:25 am);
     distance - display total distance for all trucks;
     clear - clear screen;
     exit - to exit;\n >>>\t""")
@@ -26,9 +26,9 @@ def display_package_details(package_id, packages_hash):
     print("Notes: " + package.notes)
     print("Delivered on truck: " + package.truck_number)
     print("Delivery started at: " + package.delivery_start_time)
+    print("Has to be delivered by: " + package.deadline)
     print("Delivered at: " + package.delivery_time)
     print("-------------------------------")
-
 
 
 def display_packages_in_list(list):
@@ -76,14 +76,14 @@ def display_result_time_command(time_str, packages_h):
 
     print("Status for all packages at " + time_str)
     print("\n")
+
     print("Delivered packages:")
-    print("\n")
     display_packages_in_list(delivered)
+    print("\n")
 
     print("Packages in transit:")
-    print("\n")
     display_packages_in_list(in_transit)
+    print("\n")
 
     print("Packages in hub:")
-    print("\n")
     display_packages_in_list(in_hub)
