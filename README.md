@@ -1,8 +1,8 @@
 ## Solution overview
-Basic greedy algorithm (located in core_algorithm.py) was used for determining a distance between two addresses. A path between any two addresses is stored in a graph data structure.
+Basic greedy algorithm (located in core_algorithm.py) was used for determining the distance between two addresses. A path between any two addresses is stored in a graph data structure.
 Since we know that we have at least one path for any two addresses, it is reasonable to say the average time ‘look up’ for a single path is O(1). Lookup for all packages is O(n), where n is a total number of packages. The resulting total distance travelled for all trucks/deliveries is 70.10 miles.
 
-### Data Structures
+### Data Structures - explanation
 *Graph data structure* (graph) is used to maintain and access information about shipping destinations along with distances between them. Each vertex in the graph represents a single location. 
 
 Graph has a list of all edges along with edges connected to them (list of key value pairs, where key is a given edge and value is a list of all vertices connected to it).
@@ -18,16 +18,16 @@ Hash Table data structure data can be manipulated and accessed via insert, searc
 ### Core Algorithm Overview
 ● Manually separate packages into 3 piles (taking into account any restrictions such as special notes and package delivery deadlines), one is designated for the first truck and two are designated for the second truck (two separate trips). Third truck is not used.
 
-● The first truck starts making deliveries and leaves HUB at 8:00 am, the second truck goes out at 9:05 am. Once the second truck is finished, it comes back to the HUB to get the remaining packages and delivers those as well.
+● The first truck starts making deliveries and leaves the HUB at 8:00 am, the second truck goes out at 9:05 am (as stated in the requirements). Once the second truck is finished, it comes back to the HUB to get the remaining packages and then delivers those as well.
 
 ● Repeat for all three piles until all packages are delivered:
-For each package on a given truck at each trip
+For each package on a given truck at each trip:
 - Look up an address pair which represents a key, in that key the first element is the current location and second is a shipping address of the package. Look up is performed in a list of key-value pairs where key is a pair and the value is the distance between the two locations.
 Look up has run time complexity of O(1).
 - If the pair exists, then add corresponding distance to the running total; update package status and actual delivery time.
 
 ### Loading and parsing package and location data
-Location data and package data is loaded from csv files dynamically. There are two separate methods that load data into a corresponding data structure, read_packages_csv_file and read_locations_csv_file (both located in utils/input_data_utils.py).
+Location data and package data is loaded from csv files. There are two separate methods that load data into a corresponding data structure, read_packages_csv_file and read_locations_csv_file (both located in utils/input_data_utils.py).
 
 In case the solution has to be scaled (either number of packages or number of locations), no additional modifications to the code are needed, it will support any number of packages or locations. The only requirement is that csv files, that contain location and package data, are kept in the same format.
 
@@ -53,7 +53,7 @@ Core algorithm of the solution has two main advantages: Ease of implementation a
 Once the package data is added to a hash table and location data is set up as a graph data structure, the algorithm for determining the distance between two points is a simple key-value lookup that takes constant time. For all packages its run time complexity is O(n).
 
 ### Justification of data structure choice
-Graph data structure is used to store data about shipping destinations along with distances between them. Each location is represented by a vertex and each vertex is connected to every other vertex by one edge. There is a list on the graph data structure, that contains information about distances between all edges, and is represented by key value pairs where key is a set of two locations and value is the distance between them. The solution has one connecting edge for any two vertices (two if we count both directions). Using graph data structure allows for easy look up of any connecting edge and a way to know which vertices any given vertex is connected to (especially imported if the solution will need to be updated in the future to accommodate a different core algorithm).
+Graph data structure is used to store data about shipping destinations along with distances between them. Each location (node) is represented by a vertex and each vertex is connected to every other vertex by one edge. There is a list on the graph data structure, that contains information about distances between all edges, and is represented by key value pairs where key is a set of two locations and value is the distance between them. The solution has one connecting edge for any two vertices (two if we count both directions). Using graph data structure allows for easy look up of any connecting edge and a way to know which vertices any given vertex is connected to (especially imported if the solution will need to be updated in the future to accommodate a different core algorithm).
 
 Hash Table data structure is used to represent package data. It hashes the package id of a specific package and associates a hashed key value of the package with the package object itself. Since each package has a unique id, there are no collisions. It allows for easy search, insert or delete, each having O(1) run time complexity.
 
@@ -62,6 +62,6 @@ No changes to the code needed if more than 40 packages are to be delivered. The 
 Two other data structures that can meet the same criteria and requirements:
 Packages can be stored in a queue, which can be represented as a Linked-list data structure. The main drawback is that lookup of a package will take O(n) time in the worst case scenario (n is number of packages), whereas with a hash table it takes O(1).
 
-In order for this solution to be optimal, we need to determine the optimal destination as we are building the queue, so that the order of packages in a queue would represent the path from HUB to the last package’s shipping address.
+In order for this solution to be optimal, we need to determine the optimal destination as we are building the queue, so that the order of packages in a queue represents the path from the HUB to the last package’s shipping address.
 
 Packages can also be stored in a basic list or array. The main disadvantage is that lookup takes O(n) in the worst case scenario.
