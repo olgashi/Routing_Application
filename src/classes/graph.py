@@ -11,7 +11,6 @@ class Graph:
         self.edge_list[from_vertex].append(to_vertex)
 
     def add_undirected_edge(self, address_a, address_b, weight=1.0):
-
         self.add_directed_edge(address_a, address_b, weight)
         self.add_directed_edge(address_b, address_a, weight)
 
