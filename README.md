@@ -1,4 +1,7 @@
-## Solution overview
+# Truck Routing CLI APP
+## Implementation of an algorithm to route delivery trucks that allows to meet a number of delivery deadlines while traveling the least number of miles.
+
+### Solution overview
 Basic greedy algorithm (located in core_algorithm.py) was used for determining the distance between two addresses. A path between any two addresses is stored in a graph data structure.
 Since we know that we have at least one path for any two addresses, it is reasonable to say the average time ‘look up’ for a single path is O(1). Lookup for all packages is O(n), where n is a total number of packages. The resulting total distance travelled for all trucks/deliveries is 70.10 miles.
 
