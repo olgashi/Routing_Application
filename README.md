@@ -1,4 +1,4 @@
-# Truck Routing CLI APP
+# Truck Router
 ## Implementation of an algorithm to route delivery trucks that allows to meet a number of delivery deadlines while traveling the least number of miles.
 
 ### Solution overview
