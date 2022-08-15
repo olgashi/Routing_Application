@@ -1,5 +1,5 @@
 # Truck Router
-## Implementation of an algorithm to route delivery trucks that allows to meet a number of delivery deadlines while traveling the least number of miles.
+### Implementation of an algorithm to route delivery trucks that allows to meet a number of delivery deadlines while traveling the least number of miles.
 
 ### Solution overview
 Basic greedy algorithm (located in core_algorithm.py) was used for determining the distance between two addresses. A path between any two addresses is stored in a graph data structure.
