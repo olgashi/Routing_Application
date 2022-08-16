@@ -1,7 +1,15 @@
 # Truck Router
-### Implementation of an algorithm to route delivery trucks that allows to meet a number of delivery deadlines while traveling the least number of miles.
 
-### Solution overview
+<p align="center">
+  <img width="130" alt="truckrouter logo" src="https://user-images.githubusercontent.com/41551585/184756065-9dbc34ef-f79c-4d30-ae54-62206188b5bb.png">
+</p>
+
+
+### CLI application that calculates minimum distance travelled by University Trucks using greedy algorithm.
+
+Given an input of requirements (as a spreadsheet) routes trucks to their destinations in a way that minimizes the total number of miles travelled.
+
+## Overview
 Basic greedy algorithm (located in core_algorithm.py) was used for determining the distance between two addresses. A path between any two addresses is stored in a graph data structure.
 Since we know that we have at least one path for any two addresses, it is reasonable to say the average time ‘look up’ for a single path is O(1). Lookup for all packages is O(n), where n is a total number of packages. The resulting total distance travelled for all trucks/deliveries is 70.10 miles.
 
